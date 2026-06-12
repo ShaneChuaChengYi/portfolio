@@ -1,0 +1,850 @@
+/* ============================================================
+   EAE Portfolio — "The Ledger" design system
+   Paper, ink, and profit green. Numbers are the hero.
+   ============================================================ */
+
+:root{
+  --paper:        #FAF9F5;
+  --paper-raised: #FFFFFF;
+  --ink:          #14181D;
+  --ink-soft:     #4A5159;
+  --ink-faint:    #8A9099;
+  --line:         #E5E3DB;
+  --green:        #0E7C4A;
+  --green-soft:   #E8F3ED;
+  --green-line:   #BFDFCF;
+
+  --font-display: "Archivo", sans-serif;
+  --font-body:    "Inter", sans-serif;
+  --font-mono:    "IBM Plex Mono", monospace;
+
+  --radius: 14px;
+  --maxw: 1080px;
+  --ease: cubic-bezier(.22,.8,.3,1);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--green); color:#fff; }
+
+img{ max-width:100%; display:block; }
+
+/* ---------- type scale ---------- */
+
+h1,h2,h3{ font-family:var(--font-display); line-height:1.1; letter-spacing:-0.02em; }
+
+h1{ font-size:clamp(2.4rem, 6vw, 4.2rem); font-weight:800; }
+h2{ font-size:clamp(1.7rem, 3.4vw, 2.4rem); font-weight:700; }
+h3{ font-size:1.15rem; font-weight:700; }
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--green);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:"";
+  width:26px; height:1px;
+  background:var(--green);
+}
+
+.lede{ font-size:1.08rem; color:var(--ink-soft); max-width:62ch; }
+
+.num{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+
+/* ---------- layout ---------- */
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+
+section{ padding:84px 0; }
+section + section{ border-top:1px solid var(--line); }
+
+.section-head{ margin-bottom:42px; }
+.section-head p{ margin-top:12px; }
+
+/* ---------- nav ---------- */
+
+.nav{
+  position:fixed; inset:0 0 auto 0;
+  z-index:50;
+  background:rgba(250,249,245,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+.nav.scrolled{ border-bottom-color:var(--line); }
+
+.nav-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 24px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.wordmark{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:1rem;
+  letter-spacing:-0.01em;
+  color:var(--ink);
+  text-decoration:none;
+  display:flex; align-items:center; gap:10px;
+}
+.wordmark .tick{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--green);
+}
+
+.nav-links{ display:flex; gap:28px; align-items:center; }
+.nav-links a{
+  color:var(--ink-soft);
+  text-decoration:none;
+  font-size:.88rem;
+  font-weight:500;
+  padding:6px 0;
+  border-bottom:2px solid transparent;
+  transition:color .2s, border-color .2s;
+}
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a.active{ color:var(--ink); border-bottom-color:var(--green); }
+
+.nav-toggle{
+  display:none;
+  background:none; border:none; cursor:pointer;
+  width:40px; height:40px;
+  flex-direction:column; justify-content:center; align-items:center; gap:5px;
+}
+.nav-toggle span{
+  width:20px; height:2px; background:var(--ink);
+  transition:transform .3s var(--ease), opacity .2s;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+
+
+/* ---------- hero ---------- */
+
+.hero{
+  min-height:92vh;
+  display:flex; align-items:center;
+  padding:120px 0 60px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:56px;
+  align-items:center;
+}
+
+
+.hero h1{ margin:14px 0 18px; }
+.hero h1 em{ font-style:normal; color:var(--green); }
+.hero .lede{ margin-bottom:30px; }
+
+.hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-body); font-weight:600; font-size:.92rem;
+  padding:12px 22px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:transform .2s var(--ease), box-shadow .2s, background .2s;
+}
+.btn-primary{ background:var(--ink); color:#fff; }
+.btn-primary:hover{ background:var(--green); transform:translateY(-2px); }
+.btn-ghost{ color:var(--ink); border:1px solid var(--line); background:var(--paper-raised); }
+.btn-ghost:hover{ border-color:var(--ink); transform:translateY(-2px); }
+
+/* hero ledger card — the signature element */
+
+.ledger-card{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px 26px 18px;
+  box-shadow:0 18px 40px -24px rgba(20,24,29,.25);
+}
+.ledger-card .lc-title{
+  font-family:var(--font-mono);
+  font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint);
+  display:flex; justify-content:space-between;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.ledger-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:13px 0;
+  border-bottom:1px dashed var(--line);
+}
+.ledger-row:last-child{ border-bottom:none; }
+.ledger-row .label{ font-size:.88rem; color:var(--ink-soft); }
+.ledger-row .value{
+  font-family:var(--font-mono); font-weight:600; font-size:1.05rem;
+  font-variant-numeric:tabular-nums;
+}
+.ledger-row .value.gain{ color:var(--green); }
+.ledger-row.total{
+  border-top:2px solid var(--ink);
+  margin-top:4px;
+}
+.ledger-row.total .label{ font-weight:700; color:var(--ink); }
+.ledger-row.total .value{ font-size:1.5rem; }
+
+/* ---------- stat band ---------- */
+
+.stat-band{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--paper-raised);
+  overflow:hidden;
+}
+.stat-cell{
+  padding:28px 24px;
+  border-right:1px solid var(--line);
+}
+.stat-cell:last-child{ border-right:none; }
+.stat-cell .big{
+  font-family:var(--font-mono); font-weight:600;
+  font-size:2rem; color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.stat-cell .big sup{ font-size:1rem; color:var(--green); }
+.stat-cell .small{ font-size:.85rem; color:var(--ink-soft); margin-top:4px; }
+
+/* ---------- cards & grids ---------- */
+
+.card{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px;
+}
+
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+.tile{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  transition:transform .25s var(--ease), box-shadow .25s, border-color .25s;
+}
+.tile:hover{
+  transform:translateY(-4px);
+  border-color:var(--green-line);
+  box-shadow:0 16px 32px -20px rgba(14,124,74,.35);
+}
+.tile h3{ font-size:.98rem; margin-bottom:8px; }
+.tile p{ font-size:.9rem; color:var(--ink-soft); }
+
+/* ---------- ledger table ---------- */
+
+.table-scroll{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--paper-raised); overscroll-behavior:contain; }
+
+table.ledger{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.92rem;
+}
+table.ledger th{
+  font-family:var(--font-mono);
+  font-size:.7rem; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint);
+  text-align:left;
+  padding:14px 20px;
+  border-bottom:1px solid var(--ink);
+}
+table.ledger td{
+  padding:13px 20px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+}
+table.ledger td:first-child{ color:var(--ink); }
+table.ledger .num{ font-weight:600; color:var(--ink); }
+table.ledger .gain{ color:var(--green); font-weight:600; }
+table.ledger tbody tr{ transition:background .15s; }
+table.ledger tbody tr:hover{ background:var(--green-soft); }
+table.ledger tr.totals td{
+  border-top:2px solid var(--ink);
+  border-bottom:none;
+  font-weight:700; color:var(--ink);
+  background:var(--paper);
+}
+
+/* ---------- insight list ---------- */
+
+.insight{
+  border-left:3px solid var(--green);
+  background:var(--green-soft);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:22px 26px;
+}
+.insight h3{ margin-bottom:12px; }
+.insight ul{ list-style:none; }
+.insight li{
+  padding:7px 0 7px 22px;
+  position:relative;
+  font-size:.93rem;
+  color:var(--ink-soft);
+}
+.insight li::before{
+  content:"+";
+  position:absolute; left:0;
+  font-family:var(--font-mono); font-weight:600;
+  color:var(--green);
+}
+.insight li strong{ color:var(--ink); }
+
+/* ---------- proof / evidence figures ---------- */
+
+.proof-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+
+.proof{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .25s var(--ease), box-shadow .25s;
+}
+.proof:hover{ transform:translateY(-4px); box-shadow:0 18px 36px -22px rgba(20,24,29,.3); }
+.proof img{
+  width:100%; height:320px; object-fit:cover; object-position:top;
+  cursor:zoom-in;
+  border-bottom:1px solid var(--line);
+}
+.proof figcaption{ padding:18px 20px 22px; }
+.proof figcaption h3{ font-size:.95rem; margin-bottom:6px; }
+.proof figcaption p{ font-size:.87rem; color:var(--ink-soft); }
+
+.figure-wide{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.figure-wide img{ width:100%; cursor:zoom-in; }
+.figure-wide figcaption{ padding:20px 24px; border-top:1px solid var(--line); font-size:.92rem; color:var(--ink-soft); }
+
+/* ---------- timeline ---------- */
+
+.timeline{ position:relative; padding-left:28px; }
+.timeline::before{
+  content:"";
+  position:absolute; left:5px; top:6px; bottom:6px;
+  width:1px; background:var(--line);
+}
+.timeline-item{ position:relative; padding:0 0 34px; }
+.timeline-item:last-child{ padding-bottom:0; }
+.timeline-item::before{
+  content:"";
+  position:absolute; left:-28px; top:7px;
+  width:11px; height:11px; border-radius:50%;
+  background:var(--paper);
+  border:2px solid var(--green);
+}
+.timeline-item h3{ margin-bottom:8px; }
+.timeline-item p{ font-size:.92rem; color:var(--ink-soft); margin:4px 0; }
+.timeline-item p strong{ color:var(--ink); }
+
+/* ---------- awards ---------- */
+
+.award-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+
+.award{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .25s var(--ease), box-shadow .25s;
+}
+.award:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(20,24,29,.3); }
+.award img{ width:100%; height:380px; object-fit:cover; cursor:zoom-in; border-bottom:1px solid var(--line); }
+.award-body{ padding:24px; }
+.award-body h3{ margin-bottom:10px; }
+.award-meta{
+  display:grid; grid-template-columns:auto 1fr; gap:4px 16px;
+  font-size:.88rem; margin:12px 0;
+}
+.award-meta dt{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); padding-top:3px; }
+.award-meta dd{ color:var(--ink-soft); }
+.award-body > p{ font-size:.9rem; color:var(--ink-soft); }
+
+/* ---------- page hero (subpages) ---------- */
+
+.page-hero{ padding:150px 0 60px; }
+.page-hero .lede{ margin-top:14px; }
+
+/* ---------- footer ---------- */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:40px 0;
+}
+.footer-inner{
+  max-width:var(--maxw); margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  font-size:.85rem; color:var(--ink-faint);
+}
+.footer-inner .num{ color:var(--green); }
+
+/* ---------- lightbox ---------- */
+
+.lightbox{
+  position:fixed; inset:0; z-index:100;
+  background:rgba(20,24,29,.92);
+  display:flex; align-items:center; justify-content:center;
+  padding:32px;
+  opacity:0; pointer-events:none;
+  transition:opacity .25s;
+  cursor:zoom-out;
+}
+.lightbox.open{ opacity:1; pointer-events:auto; }
+.lightbox img{ max-width:100%; max-height:100%; border-radius:8px; }
+
+/* ---------- reveal animation ---------- */
+
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.in{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  .reveal{ opacity:1; transform:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ---------- interactive spreadsheet viewer ---------- */
+
+.sheet-viewer{
+  display:none; /* shown by JS once the file loads */
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+
+.sheet-tabs{
+  display:flex; gap:4px; flex-wrap:wrap;
+  padding:10px 12px;
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+.sheet-tabs button{
+  font-family:var(--font-mono);
+  font-size:.74rem; letter-spacing:.04em;
+  padding:6px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--paper-raised);
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:background .2s, color .2s, border-color .2s;
+}
+.sheet-tabs button:hover{ border-color:var(--ink); color:var(--ink); }
+.sheet-tabs button.active{
+  background:var(--green); border-color:var(--green); color:#fff;
+}
+
+.sheet-scroll{
+  overflow:auto;
+  max-height:560px;
+  overscroll-behavior:contain;
+}
+
+.sheet-table{
+  border-collapse:separate; border-spacing:0;
+  font-size:.84rem;
+  min-width:100%;
+}
+.sheet-table th{
+  position:sticky; top:0; z-index:2;
+  background:var(--ink); color:#fff;
+  font-family:var(--font-mono);
+  font-size:.68rem; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase;
+  text-align:left;
+  padding:11px 16px;
+  white-space:nowrap;
+}
+.sheet-table td{
+  padding:9px 16px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.sheet-table td:first-child,
+.sheet-table th:first-child{
+  position:sticky; left:0; z-index:1;
+  background:var(--paper);
+  border-right:1px solid var(--line);
+}
+.sheet-table th:first-child{ z-index:3; background:var(--ink); }
+.sheet-table tbody tr:hover td{ background:var(--green-soft); }
+.sheet-table tbody tr:hover td:first-child{ background:var(--green-soft); }
+
+.sheet-table .cell-num{
+  font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+  color:var(--ink);
+}
+.sheet-table .cell-neg{ color:#B23A3A; }
+
+.sheet-hint{
+  font-family:var(--font-mono);
+  font-size:.72rem; letter-spacing:.06em;
+  color:var(--ink-faint);
+  margin-top:10px;
+}
+
+/* ---------- helpers ---------- */
+
+.mt-1{ margin-top:20px; } .mt-2{ margin-top:36px; } .mt-3{ margin-top:56px; }
+.sub-head{ margin:48px 0 22px; }
+
+/* ============================================================
+   MOBILE — comprehensive optimisation
+   Desktop rules (above) are untouched. Everything below is
+   gated behind media queries that only fire on smaller screens.
+   ============================================================ */
+
+/* ---------- global mobile helpers ---------- */
+
+/* momentum scroll on iOS for any overflow container */
+.table-scroll,
+.sheet-scroll{ -webkit-overflow-scrolling:touch; }
+
+/* scroll affordance: subtle gradient fade on right edge of scrollable tables */
+.table-scroll{ position:relative; }
+.table-scroll::after{
+  content:"";
+  position:absolute; top:0; right:0; bottom:0; width:0;
+  pointer-events:none;
+  background:linear-gradient(to left, var(--paper-raised), transparent);
+  transition:width .3s;
+}
+.table-scroll.scrolled-end::after{ width:0 !important; }
+
+/* prevent iOS from auto-inflating text */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+
+/* ============================================================
+   TABLET — 761-860 px
+   Only grid adjustments; everything else stays desktop.
+   ============================================================ */
+
+@media (max-width:860px){
+  .hero-grid{ grid-template-columns:1fr; gap:36px; }
+  .grid-3{ grid-template-columns:1fr 1fr; }
+  .proof-grid{ grid-template-columns:1fr; }
+  .award-grid{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   LARGE PHONE / SMALL TABLET — 601-760 px
+   Nav switches to hamburger, stat band splits.
+   ============================================================ */
+
+@media (max-width:760px){
+  /* nav → hamburger */
+  .nav-toggle{ display:flex; }
+  .nav-links{
+    position:absolute; top:64px; left:0; right:0;
+    flex-direction:column; gap:0;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    max-height:0; overflow:hidden;
+    transition:max-height .35s var(--ease);
+  }
+  .nav-links.open{ max-height:320px; }
+  .nav-links a{
+    width:100%; text-align:center;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:.92rem;
+  }
+  .nav-links a.active{ border-bottom-color:var(--line); color:var(--green); }
+
+  /* stat band → 2×2 */
+  .stat-band{ grid-template-columns:repeat(2, 1fr); }
+  .stat-cell:nth-child(2){ border-right:none; }
+  .stat-cell:nth-child(1),
+  .stat-cell:nth-child(2){ border-bottom:1px solid var(--line); }
+
+  /* spacing */
+  .wrap{ padding:0 20px; }
+  section{ padding:64px 0; }
+  .page-hero{ padding:130px 0 50px; }
+  .hero{ padding:110px 0 56px; }
+
+  /* images: slightly shorter but still generous at this width */
+  .proof img{ height:280px; }
+  .award img{ height:320px; }
+
+  /* spreadsheet */
+  .sheet-scroll{ max-height:460px; }
+
+  /* show scroll affordance on tables */
+  .table-scroll::after{ width:28px; }
+}
+
+/* ============================================================
+   PHONE — 481-600 px
+   Grids go single-column, tighter gaps.
+   ============================================================ */
+
+@media (max-width:600px){
+  .grid-2, .grid-3{ grid-template-columns:1fr; gap:14px; }
+  .proof-grid{ gap:16px; }
+  .award-grid{ gap:16px; }
+  .hero-grid{ gap:28px; }
+
+  /* section spacing */
+  section{ padding:56px 0; }
+  .section-head{ margin-bottom:30px; }
+  .sub-head{ margin:36px 0 18px; }
+
+  /* hero adjustments */
+  .hero{ min-height:auto; padding:100px 0 48px; }
+  .page-hero{ padding:115px 0 40px; }
+  .hero .lede{ margin-bottom:24px; }
+
+  /* buttons stack full-width */
+  .hero-actions{ flex-direction:column; }
+  .hero-actions .btn{ width:100%; justify-content:center; }
+
+  /* images: use aspect-ratio instead of fixed height at this size
+     so tall phone screenshots show more content */
+  .proof img{ height:auto; aspect-ratio:9/14; }
+  .award img{ height:auto; aspect-ratio:4/5; }
+
+  /* lightbox: near-fullscreen */
+  .lightbox{ padding:12px; }
+  .lightbox img{ border-radius:4px; }
+}
+
+/* ============================================================
+   SMALL PHONE — ≤480 px (iPhone SE, Galaxy A series, etc.)
+   Fine-grained tweaks for tight viewports.
+   ============================================================ */
+
+@media (max-width:480px){
+  .wrap{ padding:0 16px; }
+
+  /* nav: shorter header, dropdown matches */
+  .nav-inner{ height:56px; padding:0 16px; }
+  .nav-links{ top:56px; }
+  .nav-links a{ padding:15px 0; }
+
+  /* typography */
+  .eyebrow{ font-size:.74rem; gap:8px; }
+  .eyebrow::before{ width:18px; }
+  .lede{ font-size:1rem; }
+
+  /* stat band */
+  .stat-cell{ padding:20px 16px; }
+  .stat-cell .big{ font-size:1.5rem; }
+  .stat-cell .small{ font-size:.82rem; }
+
+  /* cards & tiles */
+  .card{ padding:20px 16px; }
+  .tile{ padding:18px 16px; }
+  .insight{ padding:18px 16px; }
+  .insight li{ padding-left:20px; font-size:.9rem; }
+
+  /* ledger card */
+  .ledger-card{ padding:20px 16px 14px; }
+  .ledger-card .lc-title{ font-size:.66rem; }
+  .ledger-row .label{ font-size:.84rem; }
+  .ledger-row .value{ font-size:.92rem; }
+  .ledger-row.total .value{ font-size:1.2rem; }
+
+  /* KPI ledger-rows inside cards: label above, value below */
+  .card .ledger-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    padding:10px 0;
+  }
+  .card .ledger-row .label{ font-size:.8rem; }
+  .card .ledger-row .value{ font-size:1rem; }
+
+  /* tables */
+  table.ledger th{ padding:10px 12px; font-size:.62rem; }
+  table.ledger td{ padding:10px 12px; font-size:.84rem; }
+  .table-scroll::after{ width:32px; }
+
+  /* spreadsheet viewer */
+  .sheet-scroll{ max-height:360px; }
+  .sheet-table th{ padding:9px 10px; font-size:.6rem; }
+  .sheet-table td{ padding:8px 10px; font-size:.78rem; }
+  .sheet-tabs{ padding:8px 10px; gap:6px; }
+  .sheet-tabs button{ padding:7px 12px; font-size:.72rem; }
+
+  /* timeline */
+  .timeline{ padding-left:22px; }
+  .timeline::before{ left:4px; }
+  .timeline-item{ padding-bottom:26px; }
+  .timeline-item::before{ left:-22px; width:9px; height:9px; }
+  .timeline-item h3{ font-size:.92rem; }
+  .timeline-item p{ font-size:.88rem; }
+
+  /* proof captions */
+  .proof figcaption{ padding:16px; }
+  .proof figcaption h3{ font-size:.9rem; }
+  .proof figcaption p{ font-size:.84rem; }
+
+  /* awards */
+  .award-body{ padding:18px 16px; }
+  .award-meta{ gap:2px 10px; font-size:.84rem; }
+  .award-meta dt{ font-size:.68rem; }
+
+  /* figure-wide (spreadsheet screenshot fallback) */
+  .figure-wide figcaption{ padding:16px; font-size:.88rem; }
+
+  /* footer */
+  .footer-inner{
+    flex-direction:column; text-align:center;
+    gap:6px; padding:0 16px;
+  }
+}
+
+/* ============================================================
+   VERY SMALL PHONE — ≤360 px (iPhone SE 1st gen, budget devices)
+   ============================================================ */
+
+@media (max-width:360px){
+  .wrap{ padding:0 12px; }
+  .nav-inner{ padding:0 12px; }
+
+  h1{ font-size:2rem; }
+  h2{ font-size:1.5rem; }
+  h3{ font-size:1rem; }
+
+  .stat-cell .big{ font-size:1.3rem; }
+  .stat-cell{ padding:16px 12px; }
+
+  .card{ padding:16px 14px; }
+  .tile{ padding:16px 14px; }
+  .insight{ padding:16px 14px; }
+  .ledger-card{ padding:16px 14px 12px; }
+
+  .proof img{ aspect-ratio:9/15; }
+  .award img{ aspect-ratio:3/4; }
+
+  .btn{ padding:11px 18px; font-size:.88rem; }
+}
+
+/* ============================================================
+   LANDSCAPE PHONE — short viewport, wide
+   Reduce vertical spacing so content isn't all padding.
+   ============================================================ */
+
+@media (max-height:500px) and (orientation:landscape){
+  .hero{ min-height:auto; padding:80px 0 32px; }
+  .page-hero{ padding:80px 0 24px; }
+  section{ padding:40px 0; }
+  .section-head{ margin-bottom:20px; }
+  .stat-cell{ padding:14px 16px; }
+  .stat-cell .big{ font-size:1.4rem; }
+  .lightbox{ padding:8px; }
+
+  /* keep nav compact */
+  .nav-inner{ height:48px; }
+  .nav-links{ top:48px; }
+}
+
+/* ============================================================
+   SAFE-AREA: notch / Dynamic Island / home-bar
+   ============================================================ */
+
+@supports (padding: env(safe-area-inset-bottom)){
+  .nav-inner{
+    padding-left:max(var(--_nav-pad, 24px), env(safe-area-inset-left));
+    padding-right:max(var(--_nav-pad, 24px), env(safe-area-inset-right));
+  }
+  footer .footer-inner{
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .lightbox{
+    padding-top:max(12px, env(safe-area-inset-top));
+    padding-bottom:max(12px, env(safe-area-inset-bottom));
+  }
+  /* mobile nav dropdown accounts for safe area */
+  @media (max-width:760px){
+    .nav-links{
+      padding-bottom:env(safe-area-inset-bottom);
+    }
+  }
+}
+
+/* ============================================================
+   TOUCH DEVICES — disable sticky hover, improve tap feedback
+   ============================================================ */
+
+@media (hover:none) and (pointer:coarse){
+  /* kill hover-lift — it sticks on touch and looks broken */
+  .tile:hover,
+  .proof:hover,
+  .award:hover,
+  .btn-primary:hover,
+  .btn-ghost:hover{
+    transform:none;
+    box-shadow:none;
+  }
+  /* restore correct hover colors but without transform */
+  .btn-primary:hover{ background:var(--green); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* active-press feedback instead */
+  .tile:active{ transform:scale(.98); transition:transform .1s; }
+  .proof:active{ transform:scale(.99); transition:transform .1s; }
+  .award:active{ transform:scale(.99); transition:transform .1s; }
+  .btn:active{ transform:scale(.97); transition:transform .1s; }
+
+  /* 48px minimum tap targets (Google's recommendation) */
+  .btn{ min-height:48px; }
+  .nav-toggle{ min-width:48px; min-height:48px; }
+  .sheet-tabs button{ min-height:40px; padding:8px 14px; }
+
+  /* table rows: slightly taller for fat-finger tapping */
+  table.ledger td{ padding-top:14px; padding-bottom:14px; }
+  .sheet-table td{ padding-top:11px; padding-bottom:11px; }
+
+  /* lightbox: tap anywhere on image also closes (larger target) */
+  .lightbox img{ cursor:pointer; }
+}
