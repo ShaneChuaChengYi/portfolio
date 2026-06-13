@@ -4,6 +4,15 @@
    ============================================================ */
 
 :root{
+  /* ---- brand constants (theme-independent) ---- */
+  --font-display: "Archivo", sans-serif;
+  --font-body:    "Inter", sans-serif;
+  --font-mono:    "IBM Plex Mono", monospace;
+  --radius: 14px;
+  --maxw: 1080px;
+  --ease: cubic-bezier(.22,.8,.3,1);
+
+  /* ---- LIGHT theme (default tokens) ---- */
   --paper:        #FAF9F5;
   --paper-raised: #FFFFFF;
   --ink:          #14181D;
@@ -13,14 +22,52 @@
   --green:        #0E7C4A;
   --green-soft:   #E8F3ED;
   --green-line:   #BFDFCF;
+  --shadow-rgb:   20,24,29;
+  --neg:          #B23A3A;
+}
 
-  --font-display: "Archivo", sans-serif;
-  --font-body:    "Inter", sans-serif;
-  --font-mono:    "IBM Plex Mono", monospace;
+/* ---- DARK theme palette ----
+   Applied when the user (or their device) prefers dark.
+   Warm dark paper keeps the "ledger" feel rather than pure black. */
+:root[data-theme="dark"]{
+  --paper:        #14161A;
+  --paper-raised: #1C1F25;
+  --ink:          #ECEAE3;
+  --ink-soft:     #A9AEB6;
+  --ink-faint:    #6C727B;
+  --line:         #2C3038;
+  --green:        #3BAE74;
+  --green-soft:   #182A22;
+  --green-line:   #2E5C44;
+  --shadow-rgb:   0,0,0;
+  --neg:          #E07A6F;
+}
 
-  --radius: 14px;
-  --maxw: 1080px;
-  --ease: cubic-bezier(.22,.8,.3,1);
+/* Auto-detect device theme: only applies when the user has NOT
+   made an explicit choice (no data-theme set yet).
+   The class is added to <html> by the inline script in <head>. */
+@media (prefers-color-scheme: dark){
+  :root.theme-auto{
+    --paper:        #14161A;
+    --paper-raised: #1C1F25;
+    --ink:          #ECEAE3;
+    --ink-soft:     #A9AEB6;
+    --ink-faint:    #6C727B;
+    --line:         #2C3038;
+    --green:        #3BAE74;
+    --green-soft:   #182A22;
+    --green-line:   #2E5C44;
+    --shadow-rgb:   0,0,0;
+    --neg:          #E07A6F;
+  }
+}
+
+/* smooth transition when switching themes */
+:root{ --theme-tx: background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
+body, .nav, .card, .tile, .ledger-card, .stat-band, .stat-cell, .proof, .award,
+.insight, .table-scroll, table.ledger, .sheet-viewer, .sheet-table th, .sheet-table td,
+.figure-wide, .btn, .nav-links, .theme-toggle{
+  transition: var(--theme-tx);
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -85,10 +132,26 @@ section + section{ border-top:1px solid var(--line); }
 .nav{
   position:fixed; inset:0 0 auto 0;
   z-index:50;
-  background:rgba(250,249,245,.85);
+  /* fallback solid-ish bg for Safari < 16.2 (no color-mix) */
+  background:rgba(250,249,245,.9);
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter:blur(12px);
   backdrop-filter:blur(12px);
   border-bottom:1px solid transparent;
-  transition:border-color .3s;
+  transition:border-color .3s, background-color .4s var(--ease);
+}
+/* dark-theme fallback bg for browsers without color-mix */
+:root[data-theme="dark"] .nav{ background:rgba(20,22,26,.9); }
+@media (prefers-color-scheme: dark){
+  :root.theme-auto .nav{ background:rgba(20,22,26,.9); }
+}
+/* re-apply color-mix on top where supported (overrides the rgba fallback) */
+@supports (background:color-mix(in srgb, red 50%, transparent)){
+  .nav,
+  :root[data-theme="dark"] .nav,
+  :root.theme-auto .nav{
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+  }
 }
 .nav.scrolled{ border-bottom-color:var(--line); }
 
@@ -99,8 +162,10 @@ section + section{ border-top:1px solid var(--line); }
   height:64px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  gap:20px;
 }
+.nav-inner .wordmark{ margin-right:auto; }
+.nav-right{ display:flex; align-items:center; gap:4px; order:3; }
 
 .wordmark{
   font-family:var(--font-display);
@@ -116,7 +181,7 @@ section + section{ border-top:1px solid var(--line); }
   background:var(--green);
 }
 
-.nav-links{ display:flex; gap:28px; align-items:center; }
+.nav-links{ display:flex; gap:28px; align-items:center; order:2; }
 .nav-links a{
   color:var(--ink-soft);
   text-decoration:none;
@@ -128,6 +193,34 @@ section + section{ border-top:1px solid var(--line); }
 }
 .nav-links a:hover{ color:var(--ink); }
 .nav-links a.active{ color:var(--ink); border-bottom-color:var(--green); }
+
+/* ---------- theme toggle ---------- */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:38px; height:38px;
+  margin-left:8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--paper-raised);
+  color:var(--ink-soft);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:border-color .2s, color .2s, background .4s var(--ease);
+}
+.theme-toggle:hover{ border-color:var(--ink); color:var(--ink); }
+.theme-toggle svg{ width:18px; height:18px; }
+/* show sun in dark mode, moon in light mode */
+.theme-toggle .icon-sun{ display:none; }
+.theme-toggle .icon-moon{ display:block; }
+:root[data-theme="dark"] .theme-toggle .icon-sun,
+:root.theme-auto .theme-toggle .icon-sun{ display:block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon,
+:root.theme-auto .theme-toggle .icon-moon{ display:none; }
+/* when auto resolves to LIGHT, flip back via the media query */
+@media (prefers-color-scheme: light){
+  :root.theme-auto .theme-toggle .icon-sun{ display:none; }
+  :root.theme-auto .theme-toggle .icon-moon{ display:block; }
+}
 
 .nav-toggle{
   display:none;
@@ -149,6 +242,7 @@ section + section{ border-top:1px solid var(--line); }
 
 .hero{
   min-height:92vh;
+  min-height:92dvh; /* dynamic viewport — excludes iOS address bar */
   display:flex; align-items:center;
   padding:120px 0 60px;
 }
@@ -186,7 +280,7 @@ section + section{ border-top:1px solid var(--line); }
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:26px 26px 18px;
-  box-shadow:0 18px 40px -24px rgba(20,24,29,.25);
+  box-shadow:0 18px 40px -24px rgba(var(--shadow-rgb),.25);
 }
 .ledger-card .lc-title{
   font-family:var(--font-mono);
@@ -337,7 +431,7 @@ table.ledger tr.totals td{
   overflow:hidden;
   transition:transform .25s var(--ease), box-shadow .25s;
 }
-.proof:hover{ transform:translateY(-4px); box-shadow:0 18px 36px -22px rgba(20,24,29,.3); }
+.proof:hover{ transform:translateY(-4px); box-shadow:0 18px 36px -22px rgba(var(--shadow-rgb),.3); }
 .proof img{
   width:100%; height:320px; object-fit:cover; object-position:top;
   cursor:zoom-in;
@@ -388,7 +482,7 @@ table.ledger tr.totals td{
   overflow:hidden;
   transition:transform .25s var(--ease), box-shadow .25s;
 }
-.award:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(20,24,29,.3); }
+.award:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(var(--shadow-rgb),.3); }
 .award img{ width:100%; height:380px; object-fit:cover; cursor:zoom-in; border-bottom:1px solid var(--line); }
 .award-body{ padding:24px; }
 .award-body h3{ margin-bottom:10px; }
@@ -436,14 +530,22 @@ footer{
 
 .reveal{
   opacity:0;
-  transform:translateY(22px);
+  -webkit-transform:translate3d(0,22px,0);
+  transform:translate3d(0,22px,0); /* translate3d forces GPU layer on iOS */
+  -webkit-transition:opacity .7s var(--ease), -webkit-transform .7s var(--ease);
   transition:opacity .7s var(--ease), transform .7s var(--ease);
+  will-change:opacity, transform;
 }
-.reveal.in{ opacity:1; transform:none; }
+.reveal.in{
+  opacity:1;
+  -webkit-transform:none;
+  transform:none;
+  will-change:auto; /* release the layer once revealed */
+}
 
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; }
-  .reveal{ opacity:1; transform:none; }
+  .reveal{ opacity:1; -webkit-transform:none; transform:none; }
   html{ scroll-behavior:auto; }
 }
 
@@ -491,7 +593,7 @@ footer{
   min-width:100%;
 }
 .sheet-table th{
-  position:sticky; top:0; z-index:2;
+  position:-webkit-sticky; position:sticky; top:0; z-index:2;
   background:var(--ink); color:#fff;
   font-family:var(--font-mono);
   font-size:.68rem; font-weight:500;
@@ -508,7 +610,7 @@ footer{
 }
 .sheet-table td:first-child,
 .sheet-table th:first-child{
-  position:sticky; left:0; z-index:1;
+  position:-webkit-sticky; position:sticky; left:0; z-index:1;
   background:var(--paper);
   border-right:1px solid var(--line);
 }
@@ -522,7 +624,7 @@ footer{
   text-align:right;
   color:var(--ink);
 }
-.sheet-table .cell-neg{ color:#B23A3A; }
+.sheet-table .cell-neg{ color:var(--neg); }
 
 .sheet-hint{
   font-family:var(--font-mono);
@@ -848,3 +950,53 @@ html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
   /* lightbox: tap anywhere on image also closes (larger target) */
   .lightbox img{ cursor:pointer; }
 }
+
+/* ============================================================
+   WEBKIT / iOS SAFARI COMPATIBILITY
+   Fallbacks and prefixes for older Safari versions.
+   ============================================================ */
+
+/* aspect-ratio fallback for Safari < 15 (padding-hack via wrapper not
+   possible here, so cap with a sensible min-height instead) */
+@supports not (aspect-ratio: 1 / 1){
+  @media (max-width:600px){
+    .proof img{ height:300px; }
+    .award img{ height:340px; }
+  }
+  @media (max-width:360px){
+    .proof img{ height:260px; }
+    .award img{ height:300px; }
+  }
+}
+
+/* iOS momentum scrolling on every scroll container */
+.sheet-scroll,
+.table-scroll,
+.nav-links{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* prevent iOS tap-highlight flash on interactive elements */
+a, button, .tile, .proof, .award, [data-zoom]{
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+/* hover-lift transforms: force GPU compositing so they don't flicker
+   or leave paint artifacts on iOS */
+.tile, .proof, .award, .btn, .ledger-card{
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+}
+
+/* Safari sometimes mis-renders backdrop-filter with a transparent bg;
+   ensure the nav always has a paintable backing layer */
+.nav{ -webkit-transform:translateZ(0); transform:translateZ(0); }
+
+/* iOS form/button reset so the theme toggle & nav buttons look right */
+button{
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+/* fix sticky table header z-stacking on iOS (needs explicit isolation) */
+.sheet-scroll{ isolation:isolate; }

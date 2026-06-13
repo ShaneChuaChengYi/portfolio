@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* Set theme before paint to avoid flash of wrong theme */
+(function(){
+  try{
+    var t = localStorage.getItem('eae-theme') || 'auto';
+    var r = document.documentElement;
+    if(t === 'auto'){ r.classList.add('theme-auto'); }
+    else{ r.setAttribute('data-theme', t); }
+  }catch(e){ document.documentElement.classList.add('theme-auto'); }
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business & Analytics — Shane Chua · EAE Portfolio</title>
@@ -13,9 +25,15 @@
 <header class="nav">
   <div class="nav-inner">
     <a class="wordmark" href="../index.html"><span class="tick"></span>Shane Chua</a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <div class="nav-right">
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      </button>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
+    </div>
     <nav class="nav-links">
       <a href="../index.html">Home</a>
       <a href="business.html" class="active">Business</a>
@@ -95,26 +113,6 @@
           <tr class="totals"><td>ROI</td><td class="gain num">128.85%</td><td>Return on initial investment</td></tr>
         </tbody>
       </table>
-    </div>
-
-    <h3 class="sub-head reveal">Best performing items</h3>
-    <div class="grid-2">
-      <div class="tile reveal">
-        <h3>Fruit Notifi</h3>
-        <p><span class="num" style="color:var(--ink); font-weight:600;">S$2,700 cost</span> → consistent <span class="gain num" style="color:var(--green); font-weight:600;">13.5×</span> multiplier on resale value.</p>
-      </div>
-      <div class="tile reveal">
-        <h3>Boss Drop Items</h3>
-        <p><span class="num" style="color:var(--ink); font-weight:600;">S$350 cost</span> → steady <span class="num" style="color:var(--green); font-weight:600;">1.75×</span> resale multiplier.</p>
-      </div>
-      <div class="tile reveal">
-        <h3>Dark Blade</h3>
-        <p><span class="num" style="color:var(--ink); font-weight:600;">S$1,200 cost</span> → reliable <span class="num" style="color:var(--green); font-weight:600;">S$6</span> sell price per unit.</p>
-      </div>
-      <div class="tile reveal">
-        <h3>Fast Boats</h3>
-        <p><span class="num" style="color:var(--ink); font-weight:600;">S$350 cost</span> → strong <span class="num" style="color:var(--green); font-weight:600;">1.75×</span> profit multiplier.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -298,6 +296,7 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="../js/theme.js"></script>
 <script src="../js/main.js"></script>
 <script src="../js/spreadsheet.js"></script>
 </body>
