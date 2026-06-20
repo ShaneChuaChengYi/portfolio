@@ -1,0 +1,33 @@
+{
+  "tables": [
+    {
+      "title": "Transaction Summary",
+      "columns": [
+        { "label": "Metric", "type": "string" },
+        { "label": "Value", "type": "string" },
+        { "label": "Notes", "type": "string" }
+      ],
+      "rows": [
+        ["<strong>Total Transactions</strong>", "80", "Completed sales across multiple items"],
+        ["<strong>Total Cost</strong>", "S$305", "Cumulative investment in inventory"],
+        ["<strong>Total Revenue</strong>", "S$698", "Total income from all sales"],
+        ["<strong>Gross Profit</strong>", "S$393", "Net gain after costs"],
+        ["<strong>Average Profit per Transaction</strong>", "S$4.91", "Consistent revenue generation"],
+        ["<strong>ROI Percentage</strong>", "128.85%", "Return on initial investment"]
+      ]
+    },
+    {
+      "title": "Detailed Revenue & Cost Breakdown",
+      "columns": [
+        { "label": "Category", "type": "string" },
+        { "label": "Amount (S$)", "type": "string" },
+        { "label": "Percentage", "type": "string" },
+        { "label": "Status", "type": "string" }
+      ],
+      "rows": [
+        ["<strong>Net Profit</strong>", "393", "56.3%", "✓ Achieved"],
+        ["<strong>Return on Investment</strong>", "128.85%", "--", "✓ Excellent"]
+      ]
+    }
+  ]
+}

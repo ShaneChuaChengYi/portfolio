@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics · Shane Chua</title>
+<meta name="description" content="Sales and data analytics dashboard for the Blox Fruit Carousell business: KPIs, sortable tables, and hand-drawn SVG charts.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%238e2a1c'/><g fill='none' stroke='%23f3ede1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 26V16'/><path d='M14 26V8'/><path d='M22 26v-12'/><path d='M4 26h24'/></g></svg>">
+<link rel="apple-touch-icon" href="../Images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/styles.css">
+<script src="../JS/main.js" defer></script>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <a class="brand brand--row" href="./index.html" style="flex-direction:row; align-items:center; gap:12px;">
+    <span class="brand-mark">S</span>
+    <span>
+      <span class="brand-name" style="font-size:16px;">Shane Chua</span><br>
+      <span class="brand-sub">EAE · 2026</span>
+    </span>
+  </a>
+  <button class="menu-btn" type="button" aria-label="Open menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+  </button>
+</div>
+<div class="scrim" aria-hidden="true"></div>
+
+<div class="app">
+
+<aside class="side-nav" aria-label="Primary">
+  <a class="brand" href="./index.html">
+    <span class="brand-mark">S</span>
+    <span class="brand-name">Shane Chua</span>
+    <span class="brand-sub">EAE · Edition 02 · 2026</span>
+  </a>
+  <nav>
+    <ul class="nav-list">
+      <li><a href="./index.html"><span class="num">01</span>Home</a></li>
+      <li><a href="./entrepreneurship.html"><span class="num">02</span>Entrepreneurship</a></li>
+      <li><a href="./analytics.html"><span class="num">03</span>Analytics</a></li>
+      <li><a href="./leadership.html"><span class="num">04</span>Leadership</a></li>
+      <li><a href="./cca.html"><span class="num">05</span>CCA</a></li>
+      <li><a href="./service.html"><span class="num">06</span>Service</a></li>
+      <li><a href="./achievements.html"><span class="num">07</span>Awards</a></li>
+    </ul>
+  </nav>
+  <div class="nav-foot">
+    <span>SG · 2026</span>
+    <button class="theme-toggle" type="button" aria-label="Toggle theme">
+      <span class="dot"></span><span class="label">Ink</span>
+    </button>
+  </div>
+  <button class="menu-close" type="button" aria-label="Close menu" style="position:absolute; top:14px; right:14px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</aside>
+
+<main class="main">
+
+  <section class="section" id="sales-data" style="padding-top: clamp(70px, 10vw, 140px);">
+    <div class="grid12">
+      <div class="folio">
+        <span class="label">§ 05</span>
+        05
+        <span class="slash"></span>
+        <span class="label">Analytics</span>
+      </div>
+      <div class="col-wide">
+        <a class="page-mark" href="./analytics.html" aria-label="Analytics page mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 17v-5"/><path d="M12 17V8"/><path d="M17 17v-7"/></svg>
+          <span class="pm-label">Folio · Analytics</span>
+        </a>
+        <div class="section-head">
+          <span class="eyebrow">A small business, measured</span>
+          <h2><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 4 3 5-7"/></svg></span>Sales &amp; Data Analytics Dashboard</h2>
+        </div>
+
+        <div class="card card-rule reveal">
+          <h3>Comprehensive Business Performance Analysis</h3>
+          <p>
+            This section provides detailed analytics and insights into sales performance, revenue metrics, ROI calculations, and transaction logs.
+            Each metric has been carefully tracked and analyzed to demonstrate business acumen, financial management capabilities, and data-driven decision making.
+          </p>
+        </div>
+
+        <figure class="card card-rule reveal" style="margin-top: 40px;">
+          <h3><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V2h6v2"/><path d="M9 10h6M9 14h6M9 18h4"/></svg></span>Business Analytics Spreadsheet</h3>
+
+          <!-- Interactive workbook loaded from the real .xlsx via SheetJS -->
+          <div class="spreadsheet"
+               data-spreadsheet
+               data-src="../data/BloxFruit_Business_Analytics.xlsx"
+               data-title="Blox Fruit Business Analytics"
+               data-max-height="600"></div>
+          <p>
+            To monitor business performance, I created a spreadsheet to track costs, revenue, profit, and ROI across 80 transactions. This allowed me to analyse trends, evaluate profitability, and make informed business decisions. Through this process, I developed stronger financial literacy and data analysis skills.
+          </p>
+          <p>
+            This spreadsheet demonstrates my ability to apply accounting principles, analyse financial
+            performance, and make data-driven decisions. By monitoring profitability and identifying
+            successful products, I was able to optimise pricing strategies and improve overall business results.
+          </p>
+        </figure>
+
+        <!-- ===== SVG VIZ: Revenue vs Cost vs Profit ===== -->
+        <div class="viz reveal" aria-label="Revenue vs Cost vs Profit bar chart">
+          <div class="viz-head">
+            <h3>Revenue · Cost · Profit</h3>
+            <div class="legend">
+              <span class="ink">Cost</span>
+              <span class="accent">Revenue</span>
+              <span class="mute">Profit</span>
+            </div>
+          </div>
+
+          <div class="bar-row is-ink" data-width="43.7">
+            <span class="name">Total Cost</span>
+            <span class="bar"><i></i></span>
+            <span class="num">S$305</span>
+          </div>
+          <div class="bar-row" data-width="100">
+            <span class="name">Total Revenue</span>
+            <span class="bar"><i></i></span>
+            <span class="num">S$698</span>
+          </div>
+          <div class="bar-row" data-width="56.3" style="opacity:0.85;">
+            <span class="name">Net Profit</span>
+            <span class="bar"><i style="background: var(--ink-mute);"></i></span>
+            <span class="num">S$393</span>
+          </div>
+
+          <p style="margin-top: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute);">
+            Scale → Revenue benchmark = 100%
+          </p>
+        </div>
+
+        <!-- ===== SVG VIZ: Margin donut ===== -->
+        <div class="viz reveal" aria-label="Profit margin donut chart">
+          <div class="viz-head">
+            <h3>Profit Margin</h3>
+            <div class="legend">
+              <span class="accent">Margin</span>
+              <span class="mute">Cost share</span>
+            </div>
+          </div>
+
+          <div class="donut-wrap">
+            <svg viewBox="0 0 160 160" role="img" aria-label="Profit margin donut, 56.3 percent">
+              <circle cx="80" cy="80" r="70" fill="none" stroke="var(--rule)" stroke-width="14"/>
+              <circle class="donut-ring" cx="80" cy="80" r="70" fill="none"
+                      stroke="var(--accent)" stroke-width="14" stroke-linecap="butt"
+                      transform="rotate(-90 80 80)" data-value="56.3"/>
+              <text x="80" y="80" text-anchor="middle" dominant-baseline="middle"
+                    style="font-family: var(--serif); font-size: 28px; fill: var(--ink);">56.3%</text>
+              <text x="80" y="102" text-anchor="middle" dominant-baseline="middle"
+                    style="font-family: var(--mono); font-size: 8px; letter-spacing: 0.2em; fill: var(--ink-mute); text-transform: uppercase;">Margin</text>
+            </svg>
+
+            <ul class="donut-legend">
+              <li><span><span class="swatch" style="background: var(--accent);"></span>Profit margin</span><span class="v">56.3%</span></li>
+              <li><span><span class="swatch" style="background: var(--rule);"></span>Cost share of revenue</span><span class="v">43.7%</span></li>
+              <li><span><span class="swatch" style="background: var(--ink-mute);"></span>Business multiplier</span><span class="v">2.29×</span></li>
+              <li><span><span class="swatch" style="background: var(--ink);"></span>Avg profit per transaction</span><span class="v">S$4.91</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-head" style="margin-top:60px;">
+          <span class="eyebrow">Key Performance Indicators</span>
+          <h3 style="font-size:clamp(22px, 2.4vw, 32px);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 17v-5"/><path d="M12 17V8"/><path d="M17 17v-7"/></svg></span>KPI Cluster</h3>
+        </div>
+
+        <div class="kpi-cluster reveal">
+          <div class="kpi-cell span-3">
+            <span class="label">Total Revenue Generated</span>
+            <span class="value">S$<span data-count="698">0</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Total Cost Invested</span>
+            <span class="value">S$<span data-count="305">0</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Gross Profit</span>
+            <span class="value accent">S$<span data-count="393">0</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Average Revenue / Transaction</span>
+            <span class="value">S$<span data-count="8.73">0</span></span>
+          </div>
+
+          <div class="kpi-cell span-3">
+            <span class="label">ROI Percentage</span>
+            <span class="value accent"><span data-count="128.85">0</span>%</span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Profit Margin</span>
+            <span class="value"><span data-count="56.3">0</span>%</span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Average Profit / Transaction</span>
+            <span class="value">S$<span data-count="4.91">0</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Business Multiplier</span>
+            <span class="value"><span data-count="2.29">0</span>×</span>
+          </div>
+
+          <div class="kpi-cell span-3">
+            <span class="label">Total Transactions</span>
+            <span class="value"><span data-count="80">0</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Completion Rate</span>
+            <span class="value"><span data-count="100">0</span>%</span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Customer Satisfaction</span>
+            <span class="value">4.9★<span style="font-size:13px; font-family:var(--mono); letter-spacing:0.12em; margin-left:8px; color:var(--ink-mute);">71 REVIEWS</span></span>
+          </div>
+          <div class="kpi-cell span-3">
+            <span class="label">Average Order Value</span>
+            <span class="value">S$<span data-count="8.73">0</span></span>
+          </div>
+        </div>
+
+        <div class="section-head" style="margin-top:60px;">
+          <span class="eyebrow">Interactive ledger</span>
+          <h3 style="font-size:clamp(22px, 2.4vw, 32px);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 4 3 5-7"/></svg></span>Interactive Analytics Tables</h3>
+        </div>
+        <p style="color: var(--ink-mute); font-size: 14px; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">
+          Click any column header to sort. Use the search input to filter rows.
+        </p>
+        <div id="dynamic-analytics" class="reveal"></div>
+
+        <script id="analytics-data" type="application/json">
+        {
+          "tables": [
+            {
+              "title": "Transaction Summary",
+              "columns": [
+                { "label": "Metric", "type": "string" },
+                { "label": "Value", "type": "string" },
+                { "label": "Notes", "type": "string" }
+              ],
+              "rows": [
+                ["<strong>Total Transactions</strong>", "80", "Completed sales across multiple items"],
+                ["<strong>Total Cost</strong>", "S$305", "Cumulative investment in inventory"],
+                ["<strong>Total Revenue</strong>", "S$698", "Total income from all sales"],
+                ["<strong>Gross Profit</strong>", "S$393", "Net gain after costs"],
+                ["<strong>Average Profit per Transaction</strong>", "S$4.91", "Consistent revenue generation"],
+                ["<strong>ROI Percentage</strong>", "128.85%", "Return on initial investment"]
+              ]
+            },
+            {
+              "title": "Detailed Revenue & Cost Breakdown",
+              "columns": [
+                { "label": "Category", "type": "string" },
+                { "label": "Amount (S$)", "type": "string" },
+                { "label": "Percentage", "type": "string" },
+                { "label": "Status", "type": "string" }
+              ],
+              "rows": [
+                ["<strong>Net Profit</strong>", "393", "56.3%", "✓ Achieved"],
+                ["<strong>Return on Investment</strong>", "128.85%", "--", "✓ Excellent"]
+              ]
+            }
+          ]
+        }
+        </script>
+
+        <div class="insight reveal" style="margin-top: 50px;">
+          <h4><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>Data-Driven Business Insights</h4>
+          <ul>
+            <li><strong>Consistent Profitability:</strong> All 80 transactions generated positive returns, indicating reliable business model and effective pricing strategy</li>
+            <li><strong>High ROI Achievement:</strong> 128.85% ROI demonstrates exceptional capital efficiency and market opportunity identification</li>
+            <li><strong>Scalability Proof:</strong> Diverse product portfolio (high-value items to low-cost items) shows ability to scale across different market segments</li>
+            <li><strong>Customer Trust:</strong> 4.9★ rating from 71 reviews indicates reliability and consistent service delivery</li>
+            <li><strong>Financial Management:</strong> Tracked all costs and revenues precisely, showing attention to detail and financial accountability</li>
+            <li><strong>Market Intelligence:</strong> Successfully identified high-margin products and demand patterns to optimize inventory allocation</li>
+            <li><strong>Reinvestment Strategy:</strong> Reinvested profits into inventory to scale business while maintaining profitability standards</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div class="mark">An EAE <em>portfolio</em>, in print.</div>
+    <div class="copy">© 2026 EAE Portfolio | Accountancy / Banking &amp; Finance</div>
+    <nav class="index" aria-label="Site index">
+      <a href="./index.html"><span>Home</span><span>01 →</span></a>
+      <a href="./entrepreneurship.html"><span>Entrepreneurship</span><span>02 →</span></a>
+      <a href="./leadership.html"><span>Leadership</span><span>04 →</span></a>
+      <a href="./cca.html"><span>CCA</span><span>05 →</span></a>
+      <a href="./service.html"><span>Service</span><span>06 →</span></a>
+      <a href="./achievements.html"><span>Awards</span><span>07 →</span></a>
+    </nav>
+  </footer>
+
+</main>
+</div>
+
+</body>
+</html>
